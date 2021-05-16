@@ -39,6 +39,7 @@
 #include "BESCSpindle.h"
 #include "10vSpindle.h"
 #include "YL620Spindle.h"
+#include "HotWireSpindle.h"
 
 namespace Spindles {
     // An instance of each type of spindle is created here.
@@ -52,7 +53,8 @@ namespace Spindles {
     H2A      h2a;
     BESC     besc;
     _10v     _10v;
-    YL620   yl620;
+    YL620    yl620;
+    HotWire  hotwire;
 
     void Spindle::select() {
         switch (static_cast<SpindleType>(spindle_type->get())) {
@@ -83,6 +85,11 @@ namespace Spindles {
             case SpindleType::YL620:
                 spindle = &yl620;
                 break;
+
+            case SpindleType::HOTWIRE:
+                spindle = &hotwire;
+                break;
+
             case SpindleType::NONE:
             default:
                 spindle = &null;
