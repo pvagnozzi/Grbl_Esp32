@@ -129,12 +129,14 @@ namespace Motors {
                                "%s driver test failed. Check connection",
                                reportAxisNameMsg(_axis_index, _dual_axis_index));
                 return false;
+            /*                
             case 2:
                 grbl_msg_sendf(CLIENT_SERIAL,
                                MsgLevel::Info,
                                "%s driver test failed. Check motor power",
                                reportAxisNameMsg(_axis_index, _dual_axis_index));
                 return false;
+            */
             default:
                 // driver responded, so check for other errors from the DRV_STATUS register
 
@@ -189,10 +191,10 @@ namespace Motors {
         tmcstepper->microsteps(axis_settings[_axis_index]->microsteps->get());
         tmcstepper->rms_current(run_i_ma, hold_i_percent);
 
-        // grbl_msg_sendf(CLIENT_SERIAL,
-        //                 MsgLevel::Info,
-        //                 "Setting current of driver %s, target: %u, read irun: %d, hold percent: %f, usteps: %d",
-        //                  reportAxisNameMsg(_axis_index, _dual_axis_index), run_i_ma, tmcstepper->rms_current(), hold_i_percent, axis_settings[_axis_index]->microsteps->get());
+        grbl_msg_sendf(CLIENT_SERIAL,
+                         MsgLevel::Info,
+                         "Setting current of driver %s, target: %u, read irun: %d, hold percent: %f, usteps: %d",
+                          reportAxisNameMsg(_axis_index, _dual_axis_index), run_i_ma, tmcstepper->rms_current(), hold_i_percent, axis_settings[_axis_index]->microsteps->get());
     }
 
     bool TrinamicUartDriver::set_homing_mode(bool isHoming) {

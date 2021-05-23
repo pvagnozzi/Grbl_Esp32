@@ -1,0 +1,29 @@
+[0m2021.05.22 16:50:29 INFO  Started: Metals version 0.10.3 in workspace 'D:\develop\customers\github\Grbl_Esp32' for client Visual Studio Code 1.56.2.[0m
+[0m2021.05.22 16:50:34 INFO  time: initialize in 4.17s[0m
+[0m2021.05.22 16:50:51 WARN  Build server is not auto-connectable.[0m
+[0m2021.05.22 16:50:51 WARN  no build tool detected in workspace 'D:\develop\customers\github\Grbl_Esp32'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+mag 22, 2021 4:51:19 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMAZIONI: Unsupported notification method: $/setTrace
+mag 22, 2021 4:54:35 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMAZIONI: Unsupported notification method: $/setTrace
+mag 22, 2021 5:28:47 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMAZIONI: Unsupported notification method: $/setTrace
+mag 22, 2021 5:28:47 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMAZIONI: Unsupported notification method: $/setTrace
+[0m2021.05.22 17:53:44 INFO  shutting down Metals[0m
+[0m2021.05.22 19:53:39 INFO  Started: Metals version 0.10.3 in workspace 'D:\develop\customers\github\Grbl_Esp32' for client Visual Studio Code 1.56.2.[0m
+[0m2021.05.22 19:53:45 INFO  time: initialize in 5.54s[0m
+[0m2021.05.22 19:53:45 WARN  Build server is not auto-connectable.[0m
+[0m2021.05.22 19:53:45 WARN  no build tool detected in workspace 'D:\develop\customers\github\Grbl_Esp32'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+mag 22, 2021 7:54:11 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMAZIONI: Unsupported notification method: $/setTrace
+[0m2021.05.22 19:54:12 INFO  shutting down Metals[0m
+[0m2021.05.22 19:55:20 INFO  Started: Metals version 0.10.3 in workspace 'D:\develop\customers\github\Grbl_Esp32' for client Visual Studio Code 1.56.2.[0m
+[0m2021.05.22 19:55:24 INFO  time: initialize in 4.2s[0m
+[0m2021.05.22 19:55:24 WARN  Build server is not auto-connectable.[0m
+[0m2021.05.22 19:55:24 WARN  no build tool detected in workspace 'D:\develop\customers\github\Grbl_Esp32'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.05.22 21:28:56 INFO  shutting down Metals[0m
+[0m2021.05.23 14:33:34 INFO  Started: Metals version 0.10.3 in workspace 'D:\develop\customers\github\Grbl_Esp32' for client Visual Studio Code 1.56.2.[0m
+[0m2021.05.23 14:33:41 INFO  time: initialize in 6.38s[0m
+[0m2021.05.23 14:33:41 WARN  Build server is not auto-connectable.[0m
+[0m2021.05.23 14:33:41 WARN  no build tool detected in workspace 'D:\develop\customers\github\Grbl_Esp32'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
