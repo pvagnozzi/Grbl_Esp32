@@ -63,7 +63,7 @@
 #define DEFAULT_Y_CURRENT                       0.025
 #define DEFAULT_Y_HOLD_CURRENT                  0.025
 
-#define SPINDLE_TYPE                            SpindleType::NONE
+#define SPINDLE_TYPE                            SpindleType::HOTWIRE
 
 #define X_LIMIT_PIN                             GPIO_NUM_19
 #define Y_LIMIT_PIN                             GPIO_NUM_17
@@ -85,9 +85,20 @@
 #define LED_BLINK_DELAY_NORMAL                  500
 
 /* HotWire */
-#define HOTWIRE_PWM_PIN				            GPIO_NUM_12
-#define HOTWIRE_CURRENT_ADC_CHANNEL             ADC1_GPIO35_CHANNEL
-#define HOTWIRE_VOLTAGE_ADC_CHANNEL             ADC1_GPIO34_CHANNEL
+#define SPINDLE_CURRENT_ADC_CHANNEL             ADC1_GPIO35_CHANNEL
+#define SPINDLE_VOLTAGE_ADC_CHANNEL             ADC1_GPIO34_CHANNEL
+
+#define SPINDLE_PWM_PIN                         GPIO_NUM_12
+#define SPINDLE_PWM_CHANNEL                     0
+
+#define SPINDLE_PWM_BASE_FREQ                   19500
+#define SPINDLE_PWM_BIT_PRECISION               12
+#define SPINDLE_PWM_OFF_VALUE                   0
+#define SPINDLE_PWM_MAX_VALUE                   4096
+
+#ifndef SPINDLE_PWM_MIN_VALUE
+#define SPINDLE_PWM_MIN_VALUE                   1
+#endif
 
 #ifndef __POLYSHAPER_H__
 #define __POLYSHAPER_H__
