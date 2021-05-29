@@ -40,3 +40,4 @@ INFORMAZIONI: Unsupported notification method: $/setTrace
 [0m2021.05.29 16:01:05 INFO  time: initialize in 5.46s[0m
 [0m2021.05.29 16:01:05 WARN  Build server is not auto-connectable.[0m
 [0m2021.05.29 16:01:05 WARN  no build tool detected in workspace 'D:\develop\customers\github\Grbl_Esp32'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.05.29 21:16:18 INFO  shutting down Metals[0m
