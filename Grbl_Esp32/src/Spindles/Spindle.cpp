@@ -85,7 +85,6 @@ namespace Spindles {
             case SpindleType::YL620:
                 spindle = &yl620;
                 break;
-
             case SpindleType::HOTWIRE:
                 spindle = &hotwire;
                 break;

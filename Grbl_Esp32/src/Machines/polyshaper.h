@@ -28,17 +28,16 @@
 #define MACHINE_NAME                            "polyshaper"
 #define CUSTOM_CODE_FILENAME                    "Custom/polyshaper.cpp"
 #define POLYSHAPER_INFO                         "[PolyShaper Azul][P_C_2-125-65-10-1.0-2 202020202 1.0]"
-
 #define N_AXIS                                  2
 
-#define TRINAMIC_UART_RUN_MODE                  TrinamicUartMode::StealthChop
-#define TRINAMIC_UART_HOMING_MODE               TrinamicUartMode::StallGuard
+#define TRINAMIC_UART_RUN_MODE                  TrinamicUartMode::CoolStep
+#define TRINAMIC_UART_HOMING_MODE               TrinamicUartMode::CoolStep
 
 /* GRBL Settings */
 #define USE_MACHINE_INIT
-#define USE_MACHINE_TRINAMIC_INIT
 #define USE_M30
-#define USE_CUSTOM_HOMING
+//#define USE_MACHINE_TRINAMIC_INIT
+//#define USE_CUSTOM_HOMING
 
 /***********************/
 /* Polyshaper Board R4 */
@@ -51,6 +50,9 @@
 #define X_RSENSE                                0.1
 #define X_DRIVER_ADDRESS                        0
 #define DEFAULT_X_MICROSTEPS                    8
+#define DEFAULT_X_CURRENT                       0.025
+#define DEFAULT_X_HOLD_CURRENT                  0.025
+#define DEFAULT_X_STALLGUARD                    255
 
 #define Y_TRINAMIC_DRIVER                       2209
 #define Y_STEP_PIN                              GPIO_NUM_15
@@ -58,6 +60,9 @@
 #define Y_RSENSE                                0.1
 #define Y_DRIVER_ADDRESS                        1
 #define DEFAULT_Y_MICROSTEPS                    8
+#define DEFAULT_Y_CURRENT                       0.025
+#define DEFAULT_Y_HOLD_CURRENT                  0.025
+#define DEFAULT_Y_STALLGUARD                    255
 
 #define SPINDLE_TYPE                            SpindleType::HOTWIRE
 
@@ -81,14 +86,24 @@
 #define LED_BLINK_DELAY_NORMAL                  500
 
 /* HotWire */
-#define HOTWIRE_PWM_PIN				            GPIO_NUM_12
-#define HOTWIRE_CURRENT_ADC_CHANNEL             ADC1_GPIO35_CHANNEL
-#define HOTWIRE_VOLTAGE_ADC_CHANNEL             ADC1_GPIO34_CHANNEL
+#define SPINDLE_CURRENT_ADC_CHANNEL             ADC1_GPIO35_CHANNEL
+#define SPINDLE_VOLTAGE_ADC_CHANNEL             ADC1_GPIO34_CHANNEL
+
+#define SPINDLE_PWM_PIN                         GPIO_NUM_12
+#define SPINDLE_PWM_CHANNEL                     0
+
+#define SPINDLE_PWM_BASE_FREQ                   19500
+#define SPINDLE_PWM_BIT_PRECISION               12
+#define SPINDLE_PWM_OFF_VALUE                   0
+#define SPINDLE_PWM_MAX_VALUE                   4096
+
+#ifndef SPINDLE_PWM_MIN_VALUE
+#define SPINDLE_PWM_MIN_VALUE                   1
+#endif
 
 #ifndef __POLYSHAPER_H__
 #define __POLYSHAPER_H__
 
-void led_on();
-void led_off();
-
+void led(bool on);
+void led_blink(bool fast = false, int count = 1);
 #endif
