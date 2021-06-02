@@ -28,16 +28,15 @@
 #define MACHINE_NAME                            "polyshaper"
 #define CUSTOM_CODE_FILENAME                    "Custom/polyshaper.cpp"
 #define POLYSHAPER_INFO                         "[PolyShaper Azul][P_C_2-125-65-10-1.0-2 202020202 1.0]"
-
 #define N_AXIS                                  2
 
-#define TRINAMIC_UART_RUN_MODE                  TrinamicUartMode::StealthChop
-#define TRINAMIC_UART_HOMING_MODE               TrinamicUartMode::StallGuard
+#define TRINAMIC_UART_RUN_MODE                  TrinamicUartMode::CoolStep
+#define TRINAMIC_UART_HOMING_MODE               TrinamicUartMode::CoolStep
 
 /* GRBL Settings */
 #define USE_MACHINE_INIT
+#define USE_M30
 //#define USE_MACHINE_TRINAMIC_INIT
-//#define USE_M30
 //#define USE_CUSTOM_HOMING
 
 /***********************/
@@ -53,6 +52,7 @@
 #define DEFAULT_X_MICROSTEPS                    8
 #define DEFAULT_X_CURRENT                       0.025
 #define DEFAULT_X_HOLD_CURRENT                  0.025
+#define DEFAULT_X_STALLGUARD                    255
 
 #define Y_TRINAMIC_DRIVER                       2209
 #define Y_STEP_PIN                              GPIO_NUM_15
@@ -62,6 +62,7 @@
 #define DEFAULT_Y_MICROSTEPS                    8
 #define DEFAULT_Y_CURRENT                       0.025
 #define DEFAULT_Y_HOLD_CURRENT                  0.025
+#define DEFAULT_Y_STALLGUARD                    255
 
 #define SPINDLE_TYPE                            SpindleType::HOTWIRE
 
@@ -103,5 +104,6 @@
 #ifndef __POLYSHAPER_H__
 #define __POLYSHAPER_H__
 
-
+void led(bool on);
+void led_blink(bool fast = false, int count = 1);
 #endif

@@ -16,41 +16,33 @@
 /* Custom Functions */
 /********************/
 
-void led_on() {
+void led(bool on) {
   pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, HIGH);
+  digitalWrite(LED_PIN, on ? HIGH : LOW);
 }
 
-void led_off() {
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LOW);
-}
-
-void led_blink(bool fast) {
+void led_blink(bool fast, int count) {
   auto tm = fast ? LED_BLINK_DELAY_FAST : LED_BLINK_DELAY_NORMAL;
-  led_off();
-  led_on();
-  delay(tm);
-  led_off();
-  delay(tm);
-}
-
-void led_flash(int count) {
-  for(;count;count--) {
-    led_blink(false);
+  led(false);
+  for(;count; count--) {
+    led(true);
+    delay(tm);
+    led(false);
+    delay(tm);
   }
 }
+
 
 void boot_reason_led()
 {
     esp_reset_reason_t reset_reason = esp_reset_reason();
-    led_flash(reset_reason);
+    led_blink(false, reset_reason);
 
     delay(2000);
 
     esp_sleep_wakeup_cause_t wakeup_reason;
     wakeup_reason = esp_sleep_get_wakeup_cause();
-    led_flash(wakeup_reason);
+    led_blink(false, wakeup_reason);
 }
 
 void boot_reason_print() {
@@ -180,7 +172,7 @@ void machine_init() {
     pinMode(SWITCH_N_PIN, INPUT_PULLUP);
     pinMode(POWER_INTERRUPT_PIN, INPUT);
     grbl_msg_sendf(CLIENT_ALL, MsgLevel::Info, "Pins configured");
-    led_off();
+    led(false);
 
     gpio_config_t io_conf;
     io_conf.pin_bit_mask = (1ULL<<4);
@@ -203,10 +195,6 @@ void machine_init() {
 
     init_motors();
     grbl_msg_sendf(CLIENT_ALL, MsgLevel::Info, "Stepper configured");
-    //pinMode(HOTWIRE_PWM_PIN, OUTPUT);
-    //pinMode(HOTWIRE_CURRENT_ADC_CHANNEL, INPUT);
-    //pinMode(HOTWIRE_VOLTAGE_ADC_CHANNEL, INPUT);
-    //grbl_msg_sendf(CLIENT_ALL, MsgLevel::Info, "Spindle configured");
 }
 
 #endif
