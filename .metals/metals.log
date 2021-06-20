@@ -45,3 +45,9 @@ INFORMAZIONI: Unsupported notification method: $/setTrace
 [0m2021.05.30 14:42:05 INFO  time: initialize in 4.81s[0m
 [0m2021.05.30 14:42:05 WARN  Build server is not auto-connectable.[0m
 [0m2021.05.30 14:42:05 WARN  no build tool detected in workspace 'D:\develop\customers\github\Grbl_Esp32'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.06.20 12:08:19 INFO  Started: Metals version 0.10.4 in workspace 'D:\develop\customers\github\Grbl_Esp32' for client Visual Studio Code 1.57.1.[0m
+[0m2021.06.20 12:08:27 INFO  time: initialize in 7.36s[0m
+[0m2021.06.20 12:08:27 WARN  Build server is not auto-connectable.[0m
+[0m2021.06.20 12:08:27 WARN  no build tool detected in workspace 'D:\develop\customers\github\Grbl_Esp32'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+giu 20, 2021 2:55:18 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFORMAZIONI: Unsupported notification method: $/setTrace
