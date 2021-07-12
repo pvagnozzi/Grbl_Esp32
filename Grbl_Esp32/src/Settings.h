@@ -441,6 +441,9 @@ public:
     FloatSetting* home_mpos;
     IntSetting*   microsteps;
     IntSetting*   stallguard;
+    IntSetting*   stallguard_min;
+    IntSetting*   stallguard_max;
+    IntSetting*   stallguard_down;
 
     AxisSettings(const char* axisName);
 };

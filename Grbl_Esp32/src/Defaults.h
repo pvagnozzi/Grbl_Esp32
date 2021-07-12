@@ -467,6 +467,63 @@
 #    define DEFAULT_C_STALLGUARD 16  // $175 stallguard (extended set)
 #endif
 
+#ifndef DEFAULT_X_STALLGUARD_MIN
+#    define DEFAULT_X_STALLGUARD_MIN 5  // $200 stallguard min (extended set)
+#endif
+#ifndef DEFAULT_Y_STALLGUARD_MIN
+#    define DEFAULT_Y_STALLGUARD_MIN 5  // $201 stallguard min (extended set)
+#endif
+#ifndef DEFAULT_Z_STALLGUARD_MIN
+#    define DEFAULT_Z_STALLGUARD_MIN 5  // $202 stallguard min (extended set)
+#endif
+#ifndef DEFAULT_A_STALLGUARD_MIN
+#    define DEFAULT_A_STALLGUARD_MIN 5  // $203 stallguard min (extended set)
+#endif
+#ifndef DEFAULT_B_STALLGUARD_MIN
+#    define DEFAULT_B_STALLGUARD_MIN 5  // $204 stallguard min (extended set)
+#endif
+#ifndef DEFAULT_C_STALLGUARD_MIN
+#    define DEFAULT_C_STALLGUARD_MIN 5  // $205 stallguard min (extended set)
+#endif
+
+#ifndef DEFAULT_X_STALLGUARD_MAX
+#    define DEFAULT_X_STALLGUARD_MAX 2  // $210 stallguard max (extended set)
+#endif
+#ifndef DEFAULT_Y_STALLGUARD_MAX
+#    define DEFAULT_Y_STALLGUARD_MAX 2  // $211 stallguard max (extended set)
+#endif
+#ifndef DEFAULT_Z_STALLGUARD_MAX
+#    define DEFAULT_Z_STALLGUARD_MAX 2  // $212 stallguard max (extended set)
+#endif
+#ifndef DEFAULT_A_STALLGUARD_MAX
+#    define DEFAULT_A_STALLGUARD_MAX 2  // $213 stallguard max (extended set)
+#endif
+#ifndef DEFAULT_B_STALLGUARD_MAX
+#    define DEFAULT_B_STALLGUARD_MAX 2  // $214 stallguard max (extended set)
+#endif
+#ifndef DEFAULT_C_STALLGUARD_MAX
+#    define DEFAULT_C_STALLGUARD_MAX 2  // $215 stallguard max (extended set)
+#endif
+
+#ifndef DEFAULT_X_STALLGUARD_DOWN
+#    define DEFAULT_X_STALLGUARD_DOWN 2  // $220 stallguard down (extended set)
+#endif
+#ifndef DEFAULT_Y_STALLGUARD_DOWN
+#    define DEFAULT_Y_STALLGUARD_DOWN 2  // $221 stallguard down (extended set)
+#endif
+#ifndef DEFAULT_Z_STALLGUARD_DOWN
+#    define DEFAULT_Z_STALLGUARD_DOWN 2  // $222 stallguard down (extended set)
+#endif
+#ifndef DEFAULT_A_STALLGUARD_DOWN
+#    define DEFAULT_A_STALLGUARD_DOWN 2  // $223 stallguard down (extended set)
+#endif
+#ifndef DEFAULT_B_STALLGUARD_DOWN
+#    define DEFAULT_B_STALLGUARD_DOWN 2  // $224 stallguard down (extended set)
+#endif
+#ifndef DEFAULT_C_STALLGUARD_DOWN
+#    define DEFAULT_C_STALLGUARD_DOWN 2  // $225 stallguard down (extended set)
+#endif
+
 // ==================  pin defaults ========================
 
 // Here is a place to default pins to UNDEFINED_PIN.

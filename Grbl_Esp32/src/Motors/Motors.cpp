@@ -44,7 +44,7 @@
 #include "TrinamicUartDriver.h"
 
 Motors::Motor* myMotor[MAX_AXES][MAX_GANGED];  // number of axes (normal and ganged)
-void           init_motors() {
+void init_motors() {
     grbl_msg_sendf(CLIENT_SERIAL, MsgLevel::Info, "Init Motors");
 
     auto n_axis = number_axis->get();

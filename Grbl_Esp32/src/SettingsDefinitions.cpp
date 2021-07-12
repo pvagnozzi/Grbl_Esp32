@@ -113,6 +113,9 @@ typedef struct {
     float       hold_current;
     uint16_t    microsteps;
     uint16_t    stallguard;
+    uint8_t     stallguard_min;
+    uint8_t     stallguard_max;
+    uint8_t     stallguard_down;
 } axis_defaults_t;
 axis_defaults_t axis_defaults[] = { { "X",
                                       DEFAULT_X_STEPS_PER_MM,
@@ -123,7 +126,10 @@ axis_defaults_t axis_defaults[] = { { "X",
                                       DEFAULT_X_CURRENT,
                                       DEFAULT_X_HOLD_CURRENT,
                                       DEFAULT_X_MICROSTEPS,
-                                      DEFAULT_X_STALLGUARD },
+                                      DEFAULT_X_STALLGUARD,
+                                      DEFAULT_X_STALLGUARD_MIN, 
+                                      DEFAULT_X_STALLGUARD_MAX,
+                                      DEFAULT_X_STALLGUARD_DOWN},
                                     { "Y",
                                       DEFAULT_Y_STEPS_PER_MM,
                                       DEFAULT_Y_MAX_RATE,
@@ -133,7 +139,10 @@ axis_defaults_t axis_defaults[] = { { "X",
                                       DEFAULT_Y_CURRENT,
                                       DEFAULT_Y_HOLD_CURRENT,
                                       DEFAULT_Y_MICROSTEPS,
-                                      DEFAULT_Y_STALLGUARD },
+                                      DEFAULT_Y_STALLGUARD,
+                                      DEFAULT_Y_STALLGUARD_MIN,
+                                      DEFAULT_Y_STALLGUARD_MAX,
+                                      DEFAULT_Y_STALLGUARD_DOWN },
                                     { "Z",
                                       DEFAULT_Z_STEPS_PER_MM,
                                       DEFAULT_Z_MAX_RATE,
@@ -143,7 +152,10 @@ axis_defaults_t axis_defaults[] = { { "X",
                                       DEFAULT_Z_CURRENT,
                                       DEFAULT_Z_HOLD_CURRENT,
                                       DEFAULT_Z_MICROSTEPS,
-                                      DEFAULT_Z_STALLGUARD },
+                                      DEFAULT_Z_STALLGUARD,
+                                      DEFAULT_Z_STALLGUARD_MIN,
+                                      DEFAULT_Z_STALLGUARD_MAX,
+                                      DEFAULT_Z_STALLGUARD_DOWN },
                                     { "A",
                                       DEFAULT_A_STEPS_PER_MM,
                                       DEFAULT_A_MAX_RATE,
@@ -153,7 +165,10 @@ axis_defaults_t axis_defaults[] = { { "X",
                                       DEFAULT_A_CURRENT,
                                       DEFAULT_A_HOLD_CURRENT,
                                       DEFAULT_A_MICROSTEPS,
-                                      DEFAULT_A_STALLGUARD },
+                                      DEFAULT_A_STALLGUARD,
+                                      DEFAULT_Z_STALLGUARD_MIN,
+                                      DEFAULT_Z_STALLGUARD_MAX,
+                                      DEFAULT_Z_STALLGUARD_DOWN },
                                     { "B",
                                       DEFAULT_B_STEPS_PER_MM,
                                       DEFAULT_B_MAX_RATE,
@@ -163,7 +178,10 @@ axis_defaults_t axis_defaults[] = { { "X",
                                       DEFAULT_B_CURRENT,
                                       DEFAULT_B_HOLD_CURRENT,
                                       DEFAULT_B_MICROSTEPS,
-                                      DEFAULT_B_STALLGUARD },
+                                      DEFAULT_B_STALLGUARD,
+                                      DEFAULT_B_STALLGUARD_MIN,
+                                      DEFAULT_B_STALLGUARD_MAX,
+                                      DEFAULT_B_STALLGUARD_DOWN },
                                     { "C",
                                       DEFAULT_C_STEPS_PER_MM,
                                       DEFAULT_C_MAX_RATE,
@@ -173,7 +191,10 @@ axis_defaults_t axis_defaults[] = { { "X",
                                       DEFAULT_C_CURRENT,
                                       DEFAULT_C_HOLD_CURRENT,
                                       DEFAULT_C_MICROSTEPS,
-                                      DEFAULT_C_STALLGUARD } };
+                                      DEFAULT_C_STALLGUARD,
+                                      DEFAULT_C_STALLGUARD_MIN,
+                                      DEFAULT_C_STALLGUARD_MAX,
+                                      DEFAULT_C_STALLGUARD_DOWN } };
 
 // Construct e.g. X_MAX_RATE from axisName "X" and tail "_MAX_RATE"
 // in dynamically allocated memory that will not be freed.
@@ -272,6 +293,28 @@ void make_settings() {
     a_axis_settings = axis_settings[A_AXIS];
     b_axis_settings = axis_settings[B_AXIS];
     c_axis_settings = axis_settings[C_AXIS];
+
+    for (axis = MAX_N_AXIS - 1; axis >= 0; axis--) {
+        def          = &axis_defaults[axis];
+        auto setting = new IntSetting(
+            EXTENDED, WG, makeGrblName(axis, 220), makename(def->name, "StallGuard/Down"), def->stallguard_max, -64, 255, postMotorSetting);
+        setting->setAxis(axis);
+        axis_settings[axis]->stallguard_max = setting;
+    }    
+    for (axis = MAX_N_AXIS - 1; axis >= 0; axis--) {
+        def          = &axis_defaults[axis];
+        auto setting = new IntSetting(
+            EXTENDED, WG, makeGrblName(axis, 210), makename(def->name, "StallGuard/Max"), def->stallguard_max, -64, 255, postMotorSetting);
+        setting->setAxis(axis);
+        axis_settings[axis]->stallguard_max = setting;
+    }
+    for (axis = MAX_N_AXIS - 1; axis >= 0; axis--) {
+        def          = &axis_defaults[axis];
+        auto setting = new IntSetting(
+            EXTENDED, WG, makeGrblName(axis, 200), makename(def->name, "StallGuard/Min"), def->stallguard_min, -64, 255, postMotorSetting);
+        setting->setAxis(axis);
+        axis_settings[axis]->stallguard_min = setting;
+    }
     for (axis = MAX_N_AXIS - 1; axis >= 0; axis--) {
         def          = &axis_defaults[axis];
         auto setting = new IntSetting(

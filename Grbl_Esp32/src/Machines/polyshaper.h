@@ -3,13 +3,12 @@
 
 /*
     polyshaper.h
-    https://github.com/FYSETC/FYSETC-E4
 
     2021-02-06 Piergiorgio Vagnozzi
 
     This is a machine definition file to use the Polyshaper board controller
     This is a 2 motor controller. This is setup for XY.
-    The controller has outputs for a Hotbed.
+    The controller has outputs for a Hotwire.
 
     Grbl_ESP32 is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,17 +26,17 @@
 
 #define MACHINE_NAME                            "polyshaper"
 #define CUSTOM_CODE_FILENAME                    "Custom/polyshaper.cpp"
-#define POLYSHAPER_INFO                         "[PolyShaper Azul][P_C_2-125-65-10-1.0-2 202020202 1.0]"
+
+#define POLYSHAPER_INFO_DEFAULT                 "[PolyShaper Azul][P_C_2-125-65-10-1.0-2 202020202 1.0]"
 #define N_AXIS                                  2
 
-#define TRINAMIC_UART_RUN_MODE                  TrinamicUartMode::CoolStep
-#define TRINAMIC_UART_HOMING_MODE               TrinamicUartMode::CoolStep
+#define TRINAMIC_UART_RUN_MODE                  TrinamicUartMode::StallGuard
+#define TRINAMIC_UART_HOMING_MODE               TrinamicUartMode::StallGuard
 
 /* GRBL Settings */
 #define USE_MACHINE_INIT
 #define USE_M30
-//#define USE_MACHINE_TRINAMIC_INIT
-//#define USE_CUSTOM_HOMING
+#define USE_TRINAMIC_ENABLE
 
 /***********************/
 /* Polyshaper Board R4 */
@@ -50,9 +49,9 @@
 #define X_RSENSE                                0.1
 #define X_DRIVER_ADDRESS                        0
 #define DEFAULT_X_MICROSTEPS                    8
-#define DEFAULT_X_CURRENT                       0.025
-#define DEFAULT_X_HOLD_CURRENT                  0.025
-#define DEFAULT_X_STALLGUARD                    255
+#define DEFAULT_X_CURRENT                       0.08
+#define DEFAULT_X_HOLD_CURRENT                  0.08
+#define DEFAULT_X_STALLGUARD                    25
 
 #define Y_TRINAMIC_DRIVER                       2209
 #define Y_STEP_PIN                              GPIO_NUM_15
@@ -60,9 +59,9 @@
 #define Y_RSENSE                                0.1
 #define Y_DRIVER_ADDRESS                        1
 #define DEFAULT_Y_MICROSTEPS                    8
-#define DEFAULT_Y_CURRENT                       0.025
-#define DEFAULT_Y_HOLD_CURRENT                  0.025
-#define DEFAULT_Y_STALLGUARD                    255
+#define DEFAULT_Y_CURRENT                       0.1
+#define DEFAULT_Y_HOLD_CURRENT                  0.1
+#define DEFAULT_Y_STALLGUARD                    3
 
 #define SPINDLE_TYPE                            SpindleType::HOTWIRE
 
@@ -89,21 +88,23 @@
 #define SPINDLE_CURRENT_ADC_CHANNEL             ADC1_GPIO35_CHANNEL
 #define SPINDLE_VOLTAGE_ADC_CHANNEL             ADC1_GPIO34_CHANNEL
 
-#define SPINDLE_PWM_PIN                         GPIO_NUM_12
-#define SPINDLE_PWM_CHANNEL                     0
+#define SPINDLE_OUTPUT_PIN                      GPIO_NUM_12
+#define SPINDLE_PWM_CHANNEL                     0 
 
 #define SPINDLE_PWM_BASE_FREQ                   19500
 #define SPINDLE_PWM_BIT_PRECISION               12
 #define SPINDLE_PWM_OFF_VALUE                   0
 #define SPINDLE_PWM_MAX_VALUE                   4096
 
-#ifndef SPINDLE_PWM_MIN_VALUE
 #define SPINDLE_PWM_MIN_VALUE                   1
-#endif
+
+#define TMC_UART_INIT_USER_DEFINED
 
 #ifndef __POLYSHAPER_H__
 #define __POLYSHAPER_H__
 
 void led(bool on);
 void led_blink(bool fast = false, int count = 1);
+
+void trinamic_uart_init();
 #endif

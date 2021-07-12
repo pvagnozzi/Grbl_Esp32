@@ -32,6 +32,11 @@ const double TRINAMIC_UART_FCLK = 12700000.0;  // Internal clock Approx (Hz) use
 
 // ==== defaults OK to define them in your machine definition ====
 
+
+#ifndef TRINAMIC_UART_INIT
+#   define TRINAMIC_UART_INIT
+#endif
+
 #ifndef TRINAMIC_UART_RUN_MODE
 #    define TRINAMIC_UART_RUN_MODE TrinamicUartMode ::StealthChop
 #endif
@@ -66,6 +71,8 @@ const double TRINAMIC_UART_FCLK = 12700000.0;  // Internal clock Approx (Hz) use
 
 extern Uart tmc_serial;
 
+void tmc_uart_init(Uart&);
+
 namespace Motors {
 
     enum class TrinamicUartMode : uint8_t {
@@ -74,11 +81,27 @@ namespace Motors {
         CoolStep    = 2,
         StallGuard  = 3,
     };
+      
+
+    struct TrinamicUartSettings {    		
+
+		uint16_t rms_current = 1000;
+		uint16_t microsteps = 8;
+		uint8_t toff = 5;
+		bool spreadcycle = false;
+		bool pwm_autoscale = true;
+		uint8_t blank_time = 24;
+		uint32_t tcoolthrs = 0xFFFFF;
+		uint8_t semin = 5;
+		uint8_t semax = 2;
+		uint8_t sedn = 1;
+		uint8_t sgthrs = 10;
+    };
 
     class TrinamicUartDriver : public StandardStepper {
     private:
         static bool _uart_started;
-
+        TrinamicUartSettings _settings;
     public:
         TrinamicUartDriver(uint8_t  axis_index,
                            uint8_t  step_pin,
@@ -129,7 +152,7 @@ namespace Motors {
         static void                readSgTask(void*);
 
     protected:
-        // void config_message() override;
+        // void config_message() override;        
     };
 
 }

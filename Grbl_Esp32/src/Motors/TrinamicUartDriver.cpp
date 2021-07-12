@@ -1,5 +1,5 @@
 /*
-    TrinamicUartDriverClass.cpp
+    TrinamicUartDriver.cpp
 
     This is used for Trinamic UART controlled stepper motor drivers.
 
@@ -28,11 +28,19 @@
 
 Uart tmc_serial(TMC_UART);
 
+#ifndef TMC_UART_INIT_USER_DEFINED
+void tmc_uart_init(Uart& uart) {    
+    uart.setPins(TMC_UART_TX, TMC_UART_RX);
+    uart.begin(115200, Uart::Data::Bits8, Uart::Stop::Bits1, Uart::Parity::None);
+}
+#endif
+
 namespace Motors {
+
 
     bool TrinamicUartDriver::_uart_started = false;
 
-    TrinamicUartDriver* TrinamicUartDriver::List = NULL;  // a static ist of all drivers for stallguard reporting
+    TrinamicUartDriver* TrinamicUartDriver::List = NULL;  // a static list of all drivers for stallguard reporting
 
     /* HW Serial Constructor. */
     TrinamicUartDriver::TrinamicUartDriver(
@@ -43,10 +51,9 @@ namespace Motors {
         _r_sense            = r_sense;
         this->addr          = addr;
 
-        if (!_uart_started) {
-            tmc_serial.setPins(TMC_UART_TX, TMC_UART_RX);
-            tmc_serial.begin(115200, Uart::Data::Bits8, Uart::Stop::Bits1, Uart::Parity::None);
-            _uart_started = true;
+        if (!_uart_started) {            
+            tmc_uart_init(tmc_serial);
+            _uart_started = true;            
         }
         hw_serial_init();
 
@@ -70,8 +77,6 @@ namespace Motors {
 
         init_step_dir_pins();  // from StandardStepper
         config_message();
-
-        tmcstepper->begin();
 
         _has_errors = !test();  // Try communicating with motor. Prints an error if there is a problem.
 
@@ -101,7 +106,7 @@ namespace Motors {
     /*
         This is the startup message showing the basic definition. 
     */
-    void TrinamicUartDriver::config_message() {  //TODO: The RX/TX pin could be added to the msg.
+    void TrinamicUartDriver::config_message() { 
         grbl_msg_sendf(CLIENT_SERIAL,
                        MsgLevel::Info,
                        "%s motor Trinamic TMC%d Step:%s Dir:%s Disable:%s UART%d Rx:%s Tx:%s Addr:%d R:%0.3f %s",
@@ -128,15 +133,13 @@ namespace Motors {
                                MsgLevel::Info,
                                "%s driver test failed. Check connection",
                                reportAxisNameMsg(_axis_index, _dual_axis_index));
-                return false;
-            /*                
+                return false;             
             case 2:
                 grbl_msg_sendf(CLIENT_SERIAL,
                                MsgLevel::Info,
                                "%s driver test failed. Check motor power",
                                reportAxisNameMsg(_axis_index, _dual_axis_index));
                 return false;
-            */
             default:
                 // driver responded, so check for other errors from the DRV_STATUS register
 
@@ -238,6 +241,9 @@ namespace Motors {
                 tmcstepper->pwm_autoscale(false);
                 tmcstepper->TCOOLTHRS(calc_tstep(homing_feed_rate->get(), 150.0));
                 tmcstepper->SGTHRS(constrain(axis_settings[_axis_index]->stallguard->get(), 0, 255));
+                tmcstepper->semin(constrain(axis_settings[_axis_index]->stallguard_min->get(), 0, 255));
+                tmcstepper->semax(constrain(axis_settings[_axis_index]->stallguard_max->get(), 0, 255));
+                tmcstepper->sedn(constrain(axis_settings[_axis_index]->stallguard_down->get(), 0, 255));
                 break;
             default:
                 grbl_msg_sendf(CLIENT_SERIAL, MsgLevel::Info, "Unknown Trinamic mode:d", _mode);
